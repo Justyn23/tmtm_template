@@ -1,3 +1,5 @@
+#include "script_mod.hpp"
+
 class CfgPatches
 {
 	class xp_template
@@ -8,16 +10,17 @@ class CfgPatches
 		url = "https://github.com/Superxpdude/tmtm_template";
 		
 		requiredAddons[] = {"CBA_settings"};
-		requiredVersion = 1.94;
+		requiredVersion = REQUIRED_VERSION;
 		units[] = {};
 		weapons[] = {};
 		magazines[] = {};
 		
 		// CBA Info
 		authors[] = {"Superxpdude"};
-		version = 0.6;
-		versionStr = "0.6.0";
-		versionAr[] = {0,6,0};
+		version = VERSION;
+		versionStr = QUOTE(VERSION_STR);
+		versionAr[] = {VERSION_AR};
 	};
 };
 
+#include "CfgFunctions.hpp"
