@@ -2,6 +2,16 @@ class CfgFunctions
 {
 	class XPT
 	{
+		class curator
+		{
+			file = "sxp\template\functions\curator";
+			class curatorAddUnit {};			// Adds an editable unit to all curators
+			class curatorAssignUnit {};			// Assigns a player to a curator module
+			class curatorEH {postInit = 1;};	// Adds event handlers to curators on mission start
+			class curatorGrpPlaced {};			// Adds curator placed groups to other curators
+			class curatorObjPlaced {};			// Adds curator placed objects to other curators
+			class curatorRemoveNVG {};			// Removes NVGs from curator-spawned units
+		};
 		class event
 		{
 			file = "sxp\template\functions\event";
@@ -10,6 +20,14 @@ class CfgFunctions
 			class initServer {};		// Template specific initServer entries
 			class onPlayerKilled {};	// Template specific onPlayerKilled entries
 			class onPlayerRespawn {};	// Template specific onPlayerRespawn entries
+		};
+		class loadout
+		{
+			file = "sxp\template\functions\loadout";
+			class exportInventory {};		// Exports a unit's inventory to the XPTLoadouts config format
+			class loadCurrentInventory {};	// Uses loadInventory to apply a loadout to a unit
+			class loadInventory {};			// Loads a unit's inventory
+			class loadInventoryLegacy {};	// Loads a unit's inventory from the old XPTLoadouts format
 		};
 		class radio
 		{

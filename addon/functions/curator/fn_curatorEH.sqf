@@ -8,6 +8,10 @@
 		
 	Returns: Nothing
 */
+
+#include "script_macros.hpp"
+TEMPLATE_ENABLED_CHECK
+
 // Entire function is in a forEach loop so that it applies to all curator modules.
 {
 	// Add event handler to share placed units between curators
