@@ -9,13 +9,14 @@
 		1: Error - Errors that will impact the operation of a system, but not the entire mission.
 		2: Warning - Issues that may result in undesired effects, but will not break systems.
 		3: Info - Information regarding the operation of the template.
+		4: Debug - Debug information. Not logged unless debug mode is enabled.
 	
 	Debug mode can be enabled from the lobby parameters.
 	Critical, and Error will always be reported in-game and in the .rpt.
 	Warning and Info will always be reported to the .rpt, and will be reported in-game if debug mode is enabled
 	
 	Parameters:
-		0: Number - Priority. A lower number means a higher priority, see above for details.
+		0: Number (or string) - Priority. A lower number means a higher priority, see above for details.
 		1: String - Error message. Descriptive text to describe what went wrong.
 			OR
 		1: Array - Contains the following values:
@@ -34,22 +35,38 @@
 
 // Define variables
 params [
-	["_priority", false, [false]],
+	["_priority", 3, [0,""]],
 	["_error", nil, ["",[]],2],
 	["_location", 0, [0]]
 ];
+
+// Convert a priority string to the number
+if (_priority isEqualType "") then {
+	_priority = switch (toLower _priority) do {
+		case "critical": {0};
+		case "error": {1};
+		case "warning": {2};
+		case "info": {3};
+		case "debug": {4};
+		default {3};
+	};
+};
 
 private ["_module", "_message"];
 
 // Grab the debug mode status
 private _debug = (["XPT_debugMode", 0] call BIS_fnc_getParamValue);
 
+// If debug is not enabled. Ignore messages marked as debug messages
+if ((_priority >= 4) AND (_debug == 0)) exitWith {};
+
 // Log an error (heh) if any variables are missing or invalid.
 if (isNil "_error") exitWith {
-	[true, "Called with no message defined"] call XPT_fnc_errorLog;
+	[2, format ["Called from [%1] with no message defined",_fnc_scriptNameParent]] call XPT_fnc_log;
 };
-if ((_location > 2) OR (_location < 0)) exitWith {
-	[true, format ["Called with invalid location of: %1", _location]] call XPT_fnc_errorLog;
+if ((_location > 2) OR (_location < 0)) then {
+	[2, format ["Called with invalid location of: [%1]", _location]] call XPT_fnc_log;
+	_location = 0; // Set the location to 0 if invalid
 };
 
 // If the error message is a string, convert it to an array
@@ -64,21 +81,35 @@ _error params [
 
 // Check to make sure that the message is defined
 if (isNil "_message") exitWith {
-	[true, "Called with no message defined"] call XPT_fnc_errorLog;
+	[2, format ["Called from [%1] with no message defined",_module]] call XPT_fnc_log;
 };
 
-// Build our message
-private _log = format ["[%1] %2",_module,_message];
+_priorityText = switch (_priority) do {
+	case 0: {"CRITICAL"};
+	case 1: {"ERROR"};
+	case 2: {"WARNING"};
+	case 3: {"INFO"};
+	case 4: {"DEBUG"};
+	default {"INFO"};
+};
+
+// Build our messages
+private _logMessage = format ["[%1-%2] %3",_priorityText,_module,_message];
+private _chatMessage = if ((_priority <= 1) OR ((_priority <= 3) AND (_debug == 1))) then {
+	format ["[%1] %2",_module,_message];
+} else {
+	false
+};
 
 // Send our message
 switch (_location) do {
 	// Only the local machine
-	case 0: {[_priority,_log] call XPT_fnc_errorLog;};
+	case 0: {[logMessage,_chatMessage] call XPT_fnc_logWrite;};
 	// Local machine and server
 	case 1: {
-		[_priority,_log] call XPT_fnc_errorLog;
-		[_priority,_log] remoteExec ["XPT_fnc_errorLog", 2];
+		[logMessage,_chatMessage] call XPT_fnc_logWrite;
+		[logMessage,_chatMessage] remoteExec ["XPT_fnc_logWrite", 2];
 	};
 	// All machines
-	case 2: {[_priority,_log] remoteExec ["XPT_fnc_errorLog", 0];};
+	case 2: {[logMessage,_chatMessage] remoteExec ["XPT_fnc_logWrite", 0];};
 };
