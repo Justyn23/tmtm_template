@@ -11,6 +11,13 @@ class CfgFunctions
 			class onPlayerKilled {};	// Template specific onPlayerKilled entries
 			class onPlayerRespawn {};	// Template specific onPlayerRespawn entries
 		};
+		class radio
+		{
+			file = "sxp\template\functions\radio";
+			class radioHandleDeath {};			// Saves radio settings on death
+			class radioHandleRespawn {};		// Applies radio settings on respawn
+			class radioInit {preInit = 1;};		// Configures radio settings at mission start
+		};
 		class system
 		{
 			file = "sxp\template\functions\system";

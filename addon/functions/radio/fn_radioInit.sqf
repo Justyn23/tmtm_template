@@ -8,6 +8,10 @@
 		
 	Returns: Nothing
 */
+
+#include "script_macros.hpp"
+TEMPLATE_ENABLED_CHECK
+
 private _enable = getMissionConfigValue ["XPT_acre_enable",1];
 private _isPVP = getMissionConfigValue ["XPT_isPVP",0];
 private _autobabel = getMissionConfigValue ["XPT_acre_autobabel",0];
