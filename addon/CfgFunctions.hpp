@@ -25,5 +25,12 @@ class CfgFunctions
 			class mapMarkersServer {};					// Server-side map markers function
 			class updateTask {};						// Updates tasks from a config file
 		};
+		class vehicle
+		{
+			file = "sxp\template\functions\vehicle";
+			class loadItemCargo {};			// Sets the item inventory of a vehicle or ammo box
+			class vehicleSetup {};			// Sets up a vehicle from a config file
+			class vehicleSetupTurret {};	// Sets up a turret on a vehicle
+		};
 	};
 };
