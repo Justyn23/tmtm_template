@@ -31,13 +31,13 @@
 	Returns: Nothing
 */
 
-#include "xpt_script_defines.hpp"
+#include "script_macros.hpp"
 
 // Define variables
 params [
 	["_priority", 3, [0,""]],
 	["_error", nil, ["",[]],2],
-	["_location", 0, [0]]
+	["_location", 0, [0,""]]
 ];
 
 // Convert a priority string to the number
@@ -49,6 +49,16 @@ if (_priority isEqualType "") then {
 		case "info": {3};
 		case "debug": {4};
 		default {3};
+	};
+};
+
+// Convert a location string to the number
+if (_location isEqualType "") then {
+	_location = switch (toLower _location) do {
+		case "local": {0};
+		case "server": {1};
+		case "all": {2};
+		default {0};
 	};
 };
 
@@ -94,7 +104,7 @@ _priorityText = switch (_priority) do {
 };
 
 // Build our messages
-private _logMessage = format ["[%1-%2] %3",_priorityText,_module,_message];
+private _logMessage = format ["[%1] (%2) %3",_priorityText,_module,_message];
 private _chatMessage = if ((_priority <= 1) OR ((_priority <= 3) AND (_debug == 1))) then {
 	format ["[%1] %2",_module,_message];
 } else {
@@ -108,7 +118,10 @@ switch (_location) do {
 	// Local machine and server
 	case 1: {
 		[logMessage,_chatMessage] call XPT_fnc_logWrite;
-		[logMessage,_chatMessage] remoteExec ["XPT_fnc_logWrite", 2];
+		// Only remoteExec to the server if not called on the server.
+		if (!isServer) then {
+			[logMessage,_chatMessage] remoteExec ["XPT_fnc_logWrite", 2];
+		};
 	};
 	// All machines
 	case 2: {[logMessage,_chatMessage] remoteExec ["XPT_fnc_logWrite", 0];};

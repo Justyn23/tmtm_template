@@ -9,11 +9,13 @@
 	Returns: Nothing
 */
 
+#include "script_macros.hpp"
+
 // Define variables
 params ["_player", "_jip"];
 
 // Include template version information
-#include "..\..\version.hpp"
+#include "..\..\script_mod.hpp"
 
 // Initialise the curator menu (if the player is a curator)
 [] spawn XPT_fnc_curatorMenu;
@@ -25,7 +27,7 @@ params ["_player", "_jip"];
 player createDiarySubject ["XPT_template", "XP Template"];
 // Add a version readout to the briefing section
 player createDiaryRecord ["XPT_template", ["Version",
-	"This mission is using version " + __XPTVERSION__ + " of the XP template."
+	"This mission is using version " + QUOTE(VERSIONSTR) + " of the XP template."
 ]];
 
 // This needs to be spawned so that it happens after the initialization is finished. Otherwise the notification doesn't work.
@@ -46,20 +48,5 @@ if !(_zeus isEqualTo false) then {
 	// Ensure that the player can access the curator interface
 	if ((typeName _zeus) == "STRING") then {
 		[_player, _zeus] remoteExec ["XPT_fnc_curatorAssignUnit", 2];
-	};
-	// Spawn the movement loop
-	_player spawn {
-		waitUntil {!isNull (getAssignedCuratorLogic _this)};
-		_this allowDamage false;
-		// These commands need to be executed on the server
-		[_this, false] remoteExec ["enableSimulationGlobal", 2];
-		[_this, true] remoteExec ["hideObjectGlobal", 2];
-		// Wait until the mission has started
-		waitUntil {time > 2};
-		// Start the loop
-		while {true} do {
-			sleep 1;
-			_this setPosASL (getPosASL curatorCamera);
-		};
 	};
 };
