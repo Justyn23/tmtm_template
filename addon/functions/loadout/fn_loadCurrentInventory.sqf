@@ -9,7 +9,7 @@
 	Returns: Nothing
 */
 
-#include "xpt_script_defines.hpp"
+#include "script_macros.hpp"
 
 // Define our variables
 params ["_unit"];

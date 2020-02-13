@@ -12,7 +12,7 @@
 
 #include "script_macros.hpp"
 
-private _return = if ((getMissionConfigValue "XPT_enabled") == 1) {
+private _return = if ((getMissionConfigValue "XPT_enabled") == 1) then {
 	true
 } else {
 	false
