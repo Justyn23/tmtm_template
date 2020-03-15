@@ -145,7 +145,6 @@ class params
 
 class CfgFunctions
 {
-	#include "template\config\CfgFunctions.hpp"
 	#include "config\CfgFunctions.hpp"
 };
 
@@ -153,7 +152,6 @@ class CfgFunctions
 
 class CfgNotifications
 {
-	#include "template\config\CfgNotifications.hpp"
 	#include "config\CfgNotifications.hpp"
 };
 
@@ -161,7 +159,6 @@ class CfgNotifications
 
 class CfgCommunicationMenu
 {
-	#include "template\config\CfgCommunicationMenu.hpp"
 	#include "config\CfgCommunicationMenu.hpp"
 };
 
@@ -182,7 +179,6 @@ class CfgRespawnInventory
 //-------------------- Respawn Templates
 class CfgRespawnTemplates
 {
-	#include "template\config\CfgRespawnTemplates.hpp"
 	#include "config\CfgRespawnTemplates.hpp"
 };
 
@@ -190,7 +186,6 @@ class CfgRespawnTemplates
 
 class CfgUnitInsignia
 {
-	#include "template\config\CfgUnitInsignia.hpp"
 	#include "config\CfgUnitInsignia.hpp"
 };
 
