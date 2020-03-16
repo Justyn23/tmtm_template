@@ -15,7 +15,7 @@
 params ["_player", "_jip"];
 
 // Include template version information
-#include "..\..\version.hpp"
+#include "..\..\script_mod.hpp"
 
 // Initialise the curator menu (if the player is a curator)
 [] spawn XPT_fnc_curatorMenu;
@@ -27,7 +27,7 @@ params ["_player", "_jip"];
 player createDiarySubject ["XPT_template", "XP Template"];
 // Add a version readout to the briefing section
 player createDiaryRecord ["XPT_template", ["Version",
-	"This mission is using version " + __XPTVERSION__ + " of the XP template."
+	"This mission is using version " + VERSION_STR + " of the XP template."
 ]];
 
 // This needs to be spawned so that it happens after the initialization is finished. Otherwise the notification doesn't work.
