@@ -8,10 +8,6 @@ modname = "sxp_template"
 
 skip = []
 
-releasebuild = [
-    "@zip {{modname}}_{{version}}"
-]
-
 exclude = [
 	"*.psd",
 	"*.png",
