@@ -1,0 +1,20 @@
+name = "SXP Template"
+prefix = "sxp_template"
+author = "Superxpdude"
+
+key_name = "{{prefix}}"
+sig_name = "{{prefix}}"
+modname = "sxp_template"
+
+skip = []
+
+releasebuild = [
+    "@zip {{modname}}_{{version}}"
+]
+
+exclude = [
+	"*.psd",
+	"*.png",
+	"*.tga",
+	"*.xcf"
+]
