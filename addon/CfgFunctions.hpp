@@ -76,6 +76,7 @@ class CfgFunctions
 			class mapMarkersClient {}; 				// Client-side portion of the map-markers module
 			class mapMarkersServer {}; 				// Server-side portion of the map-markers module
 			class updateTask {}; 					// Function for handling mission task updates
+			class versionCheck {postInit = 1;};		// Checks the version of the mission files
 		};
 		class vehicle
 		{

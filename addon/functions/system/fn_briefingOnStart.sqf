@@ -10,6 +10,7 @@
 */
 
 #include "script_macros.hpp"
+TEMPLATE_ENABLED_CHECK
 
 // Only run on a machine with a player
 if (!hasInterface) exitWith {};

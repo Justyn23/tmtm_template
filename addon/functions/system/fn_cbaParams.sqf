@@ -10,6 +10,7 @@
 */
 
 #include "script_macros.hpp"
+TEMPLATE_ENABLED_CHECK
 
 // If CBA is not installed, exit with an error
 if (!isClass (configfile >> "CfgMods" >> "cba")) exitWith {

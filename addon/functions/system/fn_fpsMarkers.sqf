@@ -10,6 +10,7 @@
 */
 
 #include "script_macros.hpp"
+TEMPLATE_ENABLED_CHECK
 
 // Not to be run on player clients
 if (hasInterface and !isServer) exitWith {};

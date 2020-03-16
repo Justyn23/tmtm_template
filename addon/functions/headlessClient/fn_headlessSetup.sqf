@@ -9,6 +9,9 @@
 	Returns: Nothing
 */
 
+#include "script_macros.hpp"
+TEMPLATE_ENABLED_CHECK
+
 // Only to be run on the server
 if (!isServer) exitWith {};
 
