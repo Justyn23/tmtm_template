@@ -10,3 +10,4 @@ This license means that you are free to use, distribute, and modify the XP templ
  - You may not use the XP template in any commercial application without consent from Superxpdude.
  - You may not adapt the XP template for use with games other than Arma.
  - Any modified versions of, or works created with the XP template **must** be redistributed under the Arma Public License - Share Alike.
+ - Any group using this templet for their missions must include the colossus neutron mod in their modpack
